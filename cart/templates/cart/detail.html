@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Shopping cart
+{% endblock %}
+
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">City</th>
+                <!-- <th scope="col">Quantity</th> -->
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with city=item.city %}
+            <tr>
+                <th scope="row">
+                    <a href="{{ city.get_absolute_url }}">
+                        <img src="{{ city.image.url }}" class="img-thumbnail" width="200" height="200">
+                    </a>
+                </th>
+                <td>{{ city.name }}</td>
+                <!-- <td>
+                    <form action="{% url "cart:city_add" city.id %}" method="post">
+                        {{ item.quantity_form.quantity }}
+                        {{ item.quantity_form.is_update }}
+                        <input type="submit" class="btn btn-primary" value="Update">
+                        {% csrf_token %}
+                    </form>
+                </td> -->
+                <td><a href="{% url "cart:city_remove" city.id %}">Remove</a></td>
+            </tr>
+            {% endwith %}
+        {% endfor %}
+            </tbody>
+    </table>
+    
+{% endblock %}

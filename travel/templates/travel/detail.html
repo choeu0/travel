@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}City Detail{% endblock %}
+{% block content %}
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <img src="{{city.image.url}}" width="100%">
+                </div>
+                <div class="col">
+                    <h1 class="display-6">{{city.name}}</h1>
+                    <form action="{% url 'cart:city_add' city.id %}" method="post">
+                        {{add_to_cart}}
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary btn-sm" value="Add to Cart">
+                    </form>
+                    <h5><span class="badge badge-secondary badge-sm">Description</span>{{city.description|linebreaks}}</h5>
+                </div>
+            </div>
+
+        </div>
+
+
+
+{% endblock %}
